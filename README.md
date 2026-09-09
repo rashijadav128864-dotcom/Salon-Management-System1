@@ -45,3 +45,11 @@ A PHP and MySQL based Salon Management System developed using XAMPP.
 - Manage Users
 - Manage Appointments
 - Update Appointment Status
+
+## Future Enhancements
+
+- Online payment integration
+- Email notifications
+- Customer reviews and ratings
+- Improved appointment scheduling
+- Responsive design improvements
