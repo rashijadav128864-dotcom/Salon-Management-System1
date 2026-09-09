@@ -11,3 +11,19 @@ A PHP and MySQL based Salon Management System developed using XAMPP.
 - Payment History
 - User Profile
 - Admin Dashboard
+
+## Technologies Used
+- PHP
+- MySQL
+- HTML
+- CSS
+- JavaScript
+- Bootstrap
+- XAMPP
+
+## How to Run
+1. Install XAMPP.
+2. Start Apache and MySQL.
+3. Place the project inside `htdocs`.
+4. Import `database/salon_management.sql` into phpMyAdmin.
+5. Open the project through localhost.
