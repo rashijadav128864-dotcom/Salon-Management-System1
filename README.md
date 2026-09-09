@@ -27,3 +27,21 @@ A PHP and MySQL based Salon Management System developed using XAMPP.
 3. Place the project inside `htdocs`.
 4. Import `database/salon_management.sql` into phpMyAdmin.
 5. Open the project through localhost.
+
+## Project Modules
+
+### User Side
+- Registration and Login
+- Browse Services
+- Book Appointments
+- View Appointment History
+- View Payment History
+- Manage Profile
+
+### Admin Side
+- Admin Login
+- Dashboard
+- Manage Services
+- Manage Users
+- Manage Appointments
+- Update Appointment Status
