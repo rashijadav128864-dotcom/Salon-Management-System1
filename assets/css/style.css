@@ -1,0 +1,649 @@
+/* =====================================================================
+   STYLE.CSS - Bloom & Gold Salon
+   -----------------------------------------------------------------
+   This file overrides/extends Bootstrap 5 with a custom luxury salon
+   theme: soft pink, white, and gold. It is loaded AFTER Bootstrap in
+   index.php so these rules take priority.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------
+   1. DESIGN TOKENS (CSS variables)
+   Keeping all colors/fonts in one place means we can re-theme the
+   entire site later by changing values here only.
+--------------------------------------------------------------- */
+:root {
+    --blush: #fdf3f1;         /* main page background */
+    --rose: #e8b4bc;          /* soft pink - primary accent */
+    --rose-deep: #c97b8c;     /* deeper dusty pink - hover/active states */
+    --gold: #c9a24b;          /* muted gold - luxury accent */
+    --gold-light: #e8d5a3;    /* pale gold for subtle backgrounds */
+    --charcoal: #2b2320;      /* warm near-black - main text/footer */
+    --charcoal-soft: #5a4f4a; /* softer body text */
+    --white: #ffffff;
+
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Jost', sans-serif;
+}
+
+/* ---------------------------------------------------------------
+   2. GLOBAL RESETS & BASE STYLES
+--------------------------------------------------------------- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--charcoal-soft);
+    background-color: var(--blush);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .brand-mark {
+    font-family: var(--font-display);
+    color: var(--charcoal);
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Respect users who prefer reduced motion (accessibility) */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* Visible keyboard focus outline for accessibility */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------
+   3. SHARED SECTION SPACING
+--------------------------------------------------------------- */
+.section {
+    padding: 6rem 0;
+}
+
+.section-head {
+    max-width: 640px;
+    margin: 0 auto 3rem auto;
+}
+
+.eyebrow {
+    font-family: var(--font-body);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    color: var(--rose-deep);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+}
+
+.section-title {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.section-text {
+    font-size: 1.02rem;
+    line-height: 1.8;
+}
+
+/* ---------------------------------------------------------------
+   4. NAVIGATION BAR
+   Starts transparent over the hero, becomes solid blush + shadow
+   once the user scrolls (class toggled by script.js).
+--------------------------------------------------------------- */
+#mainNavbar {
+    padding: 1.15rem 0;
+    background: transparent;
+    transition: background-color 0.35s ease, box-shadow 0.35s ease, padding 0.35s ease;
+}
+
+#mainNavbar.scrolled {
+    background-color: rgba(253, 243, 241, 0.96);
+    box-shadow: 0 6px 24px rgba(43, 35, 32, 0.08);
+    padding: 0.7rem 0;
+    backdrop-filter: blur(6px);
+}
+
+.brand-mark {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.brand-amp {
+    color: var(--gold);
+    font-style: italic;
+    margin: 0 0.05em;
+}
+
+.navbar-nav .nav-link {
+    font-family: var(--font-body);
+    color: var(--charcoal) !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin: 0 0.35rem;
+    position: relative;
+    padding: 0.4rem 0.2rem !important;
+}
+
+/* Gold underline that grows in on hover - signature nav interaction */
+.navbar-nav .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 100%;
+}
+
+.btn-nav-register {
+    background-color: var(--charcoal);
+    color: var(--white) !important;
+    border-radius: 40px;
+    padding: 0.45rem 1.3rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-nav-register:hover {
+    background-color: var(--rose-deep);
+    transform: translateY(-1px);
+    color: var(--white) !important;
+}
+
+/* ---------------------------------------------------------------
+   5. HERO BANNER
+   Full-bleed portrait image, offset with a gold border frame,
+   overlaid by the headline content. Layered, not centered-stock.
+--------------------------------------------------------------- */
+.hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    padding-top: 5rem;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--blush) 0%, #f7e2df 100%);
+}
+
+.hero-frame {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 52%;
+    height: 100%;
+    clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.92);
+}
+
+.hero-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(253, 243, 241, 0.35), rgba(43, 35, 32, 0.12));
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 620px;
+}
+
+.hero-title {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1.3rem;
+}
+
+.gold-italic {
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 600;
+}
+
+.hero-sub {
+    font-size: 1.08rem;
+    max-width: 480px;
+    margin-bottom: 2.2rem;
+    line-height: 1.75;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-hero-primary {
+    background-color: var(--gold);
+    color: var(--white);
+    border-radius: 40px;
+    padding: 0.85rem 2rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 24px rgba(201, 162, 75, 0.35);
+}
+
+.btn-hero-primary:hover {
+    background-color: var(--rose-deep);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(201, 123, 140, 0.4);
+}
+
+.btn-hero-ghost {
+    border: 1.5px solid var(--charcoal);
+    color: var(--charcoal);
+    border-radius: 40px;
+    padding: 0.85rem 2rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-hero-ghost:hover {
+    background-color: var(--charcoal);
+    color: var(--white);
+}
+
+/* ---------------------------------------------------------------
+   6. ABOUT SECTION
+--------------------------------------------------------------- */
+.about-img-wrap {
+    position: relative;
+}
+
+.about-img {
+    border-radius: 16px;
+    width: 100%;
+    max-height: 460px;
+    object-fit: cover;
+}
+
+.about-badge {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1rem;
+    background: var(--gold);
+    color: var(--white);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 14px 30px rgba(201, 162, 75, 0.4);
+}
+
+.about-badge-num {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.about-badge-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+}
+
+.about-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.about-list li {
+    margin-bottom: 0.7rem;
+    font-size: 0.98rem;
+    color: var(--charcoal);
+}
+
+.about-list i {
+    color: var(--gold);
+    margin-right: 0.6rem;
+}
+
+.link-more {
+    color: var(--rose-deep);
+    font-weight: 600;
+    border-bottom: 1.5px solid var(--rose-deep);
+    padding-bottom: 2px;
+}
+
+/* ---------------------------------------------------------------
+   7. SERVICES SECTION
+--------------------------------------------------------------- */
+.services-section {
+    background-color: var(--white);
+}
+
+.service-card {
+    background: var(--blush);
+    border-radius: 18px;
+    padding: 2.4rem 1.8rem;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease;
+    border: 1px solid transparent;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    background-color: var(--white);
+    box-shadow: 0 20px 40px rgba(43, 35, 32, 0.1);
+    border-color: var(--gold-light);
+}
+
+.service-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--rose);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin: 0 auto 1.3rem auto;
+    transition: background-color 0.35s ease;
+}
+
+.service-card:hover .service-icon {
+    background: var(--gold);
+}
+
+.service-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+}
+
+.service-card p {
+    font-size: 0.92rem;
+    margin-bottom: 1.2rem;
+}
+
+.service-price {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--rose-deep);
+    font-size: 0.95rem;
+    border-top: 1px solid var(--gold-light);
+    padding-top: 0.8rem;
+}
+
+/* ---------------------------------------------------------------
+   8. WHY CHOOSE US SECTION
+--------------------------------------------------------------- */
+.why-section {
+    background: linear-gradient(180deg, var(--blush), #f9e8e5);
+}
+
+.why-card {
+    padding: 1.5rem;
+}
+
+.why-card i {
+    font-size: 2.1rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.why-card h4 {
+    font-size: 1.08rem;
+    margin-bottom: 0.5rem;
+}
+
+.why-card p {
+    font-size: 0.9rem;
+}
+
+/* ---------------------------------------------------------------
+   9. TESTIMONIALS SECTION (Bootstrap Carousel styled)
+--------------------------------------------------------------- */
+.testimonial-section {
+    background-color: var(--white);
+}
+
+.testimonial-card {
+    max-width: 640px;
+    text-align: center;
+    padding: 1rem 2rem 2rem 2rem;
+}
+
+.quote-icon {
+    font-size: 2.2rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+.testimonial-text {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--charcoal);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-name {
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 0.1rem;
+}
+
+.testimonial-role {
+    font-size: 0.85rem;
+    color: var(--rose-deep);
+}
+
+.testimonial-nav-btn {
+    width: 42px;
+    height: 42px;
+    background: var(--blush);
+    color: var(--charcoal);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.testimonial-nav-btn:hover {
+    background: var(--gold);
+    color: var(--white);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    position: relative;
+    width: auto;
+    opacity: 1;
+}
+
+.carousel-control-prev { float: left; margin-left: 2%; }
+.carousel-control-next { float: right; margin-right: 2%; }
+
+/* ---------------------------------------------------------------
+   10. CALL TO ACTION STRIP
+--------------------------------------------------------------- */
+.cta-strip {
+    background: linear-gradient(120deg, var(--rose-deep), var(--gold));
+    padding: 3.5rem 0;
+    text-align: center;
+}
+
+.cta-strip h2 {
+    color: var(--white);
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    margin-bottom: 1.5rem;
+}
+
+.cta-strip .btn-hero-primary {
+    background-color: var(--white);
+    color: var(--charcoal);
+    box-shadow: none;
+}
+
+.cta-strip .btn-hero-primary:hover {
+    background-color: var(--charcoal);
+    color: var(--white);
+}
+
+/* ---------------------------------------------------------------
+   11. FOOTER
+--------------------------------------------------------------- */
+.footer {
+    background-color: var(--charcoal);
+    color: #cfc3bd;
+    padding: 4.5rem 0 2rem 0;
+}
+
+.footer-brand {
+    color: var(--white);
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.footer-text {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    max-width: 320px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.3rem;
+}
+
+.social-icons a {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #5a4f4a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: var(--gold);
+    border-color: var(--gold);
+}
+
+.footer-heading {
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.footer-links,
+.footer-contact {
+    list-style: none;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+.footer-links li,
+.footer-contact li {
+    margin-bottom: 0.7rem;
+}
+
+.footer-links a {
+    color: #cfc3bd;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--gold);
+}
+
+.footer-contact i {
+    color: var(--gold);
+    margin-right: 0.5rem;
+    width: 16px;
+}
+
+.footer-rule {
+    border-color: #4a413c;
+    margin: 2.5rem 0 1.5rem 0;
+}
+
+.footer-bottom {
+    font-size: 0.82rem;
+    text-align: center;
+    color: #9a8f8a;
+    margin-bottom: 0;
+}
+
+/* ---------------------------------------------------------------
+   12. RESPONSIVE ADJUSTMENTS
+--------------------------------------------------------------- */
+@media (max-width: 991.98px) {
+    .hero-frame {
+        width: 100%;
+        opacity: 0.18;
+        clip-path: none;
+    }
+    .hero-content {
+        max-width: 100%;
+    }
+    .navbar-collapse {
+        background: var(--white);
+        border-radius: 12px;
+        padding: 1rem 1.2rem;
+        margin-top: 0.8rem;
+        box-shadow: 0 10px 30px rgba(43, 35, 32, 0.1);
+    }
+}
+
+@media (max-width: 575.98px) {
+    .section {
+        padding: 4rem 0;
+    }
+    .hero {
+        min-height: auto;
+        padding: 7rem 0 4rem 0;
+    }
+    .about-badge {
+        width: 96px;
+        height: 96px;
+        right: 0;
+    }
+}
